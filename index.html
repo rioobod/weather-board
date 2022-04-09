@@ -41,7 +41,41 @@
             </ul>
         </section>
         <div id="forecast-div" class="">
-
+            <section id="current-day-section" class="hide">
+                <div class="card">
+                    <h3 id="city-name" class="card-header">City Name, State Name</h3>
+                    <div class="card-body">
+                        <h4 id="todays-date" class="card-title"></h4>
+                        <i id="curr-day-icon"></i>
+                        <ul class="list-group list-group-slush borderless">
+                            <li class="list-group-item data-display">
+                                <h5>Temp: </h5>
+                                <p id="curr-temp" class="card-text"></p>
+                            </li>
+                            <li class="list-group-item data-display">
+                                <h5>Wind:</h5>
+                                <p id="curr-wind" class="card-text"></p>
+                            </li>
+                            <li class="list-group-item data-display">
+                                <h5>Humidity:</h5>
+                                <p id="curr-humidity" class="card-text"></p>
+                            </li>
+                            <li class="list-group-item data-display">
+                                <h5>UV Index: </h5>
+                                <p id="curr-uv" class="card-text"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+            </section>
+    
+            <section id="daily-forecast-section" class="hide">
+                <div  id="daily-forecast-div" class="card-group">
+                    <h3 class="day-forecast-header">5 Day Forecast</h3>
+                    <div id="daily-forecast-list"></div>
+                </div>
+            </section>
         </div>
     </div>
     <!-- javascript starts here -->
