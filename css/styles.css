@@ -16,3 +16,22 @@ body{
     grid-column: 1 / 6;
     text-align: center;
 }
+
+#main-div {
+    grid-row: 2;
+    grid-column: 1 / 6;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#search-section {
+    grid-column: 1 / 2;
+}
+
+#forecast-div {
+    grid-column: 2 / 7;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+}
