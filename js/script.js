@@ -173,7 +173,49 @@ async function getWeatherData(event) {
       console.log(data);
     })
     .catch((e) => console.log(e));
-    //setWeatherData(weatherData); function to add data to the dom
+    setWeatherData(weatherData); 
 }
 
-
+function setWeatherData(weatherData) {
+    if (cityName) {
+      currTemp = Math.round(weatherData.current.temp);
+      currWind = weatherData.current.wind_speed;
+      currHumidity = weatherData.current.humidity;
+      currUV = weatherData.current.uvi;
+  
+      weatherConditions.forEach((item) => {
+        if (item.condition === weatherData.current.weather[0].main) {
+          currDayIconStyle = item.icon;
+          currDayIcon.classList.add("fas");
+          currDayIcon.classList.add(item.icon);
+          currDayIcon.classList.add("fa-3x");
+          currDayIcon.style.color = item.color;
+        }
+      });
+  
+      dailyForecast = weatherData.daily;
+      showWeatherForecast();
+    } else {
+      console.log("no valid city");
+    }
+  }
+  function showWeatherForecast() {
+    dayDisplay.classList.remove("hide");
+  
+    let uvStyle = "";
+  
+    if (currUV < 3) {
+      uvStyle = "uvi-favorable";
+    } else if (currUV > 2 && currUV < 6) {
+      uvStyle = "uvi-moderate";
+    } else {
+      uvStyle = "uvi-severe";
+    }
+  
+    cityNameDisplay.innerText = `${cityName}, ${stateName} - ${today}`;
+    currTempDisplay.innerHTML = `${currTemp}&deg`;
+    currWindDisplay.innerText = `${currWind} mph`;
+    currHumidityDisplay.innerText = `${currHumidity}%`;
+    currUVDisplay.classList.add(uvStyle);
+    currUVDisplay.innerText = `${currUV}`;
+  }

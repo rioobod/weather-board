@@ -107,3 +107,22 @@ body{
 .hide {
     display: none;
 }
+
+#search-input {
+    padding: 3px 0;
+    border-radius: 0.25em;
+    border: 1px solid gray;
+}
+
+#search-input:focus {
+    background-color: rgba(128,128,128,0.1);
+}
+#search-btn{
+    padding: 3px 7px;
+    border: 1px solid gray;
+    border-radius: 0.25em;
+    background-color: rgba(255, 255, 255, 1);
+}
+#search-btn:focus {
+    background-color: rgba(128,128,128,0.1);
+}
