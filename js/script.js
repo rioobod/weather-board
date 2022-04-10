@@ -121,6 +121,10 @@ const weatherConditions = [
     color: "#898383",
   },
 ];
+
+// search variables
+let searchHistory = [];
+
 // add an event listener to the search button
 searchBtn.addEventListener("click", getWeatherData);
 searchForm.addEventListener("submit", getWeatherData);
@@ -289,4 +293,21 @@ function showDailyForecast() {
             dailyForecastList.appendChild(div);
         }
     })
+}
+
+// save search history to local storage
+function saveSearch() {
+    let savedSearch = []
+    if (localStorage.getItem("searchHistory")) {
+        savedSearch = JSON.parse(localStorage.getItem("searchHistory"));
+        if (!savedSearch.includes(cityName)) {
+            savedSearch.push(cityName);
+        }
+
+        searchHistory = savedSearch;
+    } else {
+        searchHistory.push(cityName);
+    }
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+   
 }
