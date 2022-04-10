@@ -79,3 +79,31 @@ body{
     color: lightgrey;
     font-size: large;
 }
+
+.data-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 300px;
+}
+
+.uvi-favorable {
+    max-width: 50px;
+    text-align: center;
+    background-color: green;
+    color: white;
+}
+.uvi-moderate {
+    max-width: 50px;
+    text-align: center;
+    background-color: yellow;
+}
+.uvi-severe {
+    max-width: 50px;
+    text-align: center;
+    background-color: red;
+    color: white;
+}
+
+.hide {
+    display: none;
+}

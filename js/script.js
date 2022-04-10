@@ -1,6 +1,25 @@
 const searchForm = document.querySelector("#search-form");
 const searchBtn = document.querySelector("#search-btn");
 const searchInput = document.querySelector("#search-input");
+const searchHistoryDisplay = document.querySelector("#search-history");
+
+// weather fields for current day
+const cityNameDisplay = document.querySelector("#city-name");
+const currTempDisplay = document.querySelector("#curr-temp");
+const currWindDisplay = document.querySelector("#curr-wind");
+const currHumidityDisplay = document.querySelector("#curr-humidity");
+const currUVDisplay = document.querySelector("#curr-uv");
+
+// display area
+const dayDisplay = document.querySelector("#current-day-section");
+const dailyForecastDisplay = document.querySelector("#daily-forecast-section");
+const dailyForecastList = document.querySelector("#daily-forecast-list");
+
+const currDayIcon = document.querySelector("#curr-day-icon");
+
+/* moment.js to get day and current hour */
+const today = moment().format("MMMM Do YYYY");
+const currHour = moment().format("H");
 
 /*   define global variables       */
 // API 
@@ -27,7 +46,8 @@ let currDayIconStyle = "";
 
 // add an event listener to the search button
 searchBtn.addEventListener("click", getWeatherData);
-searchForm.addEventListener("submit", getWeatherData)
+searchForm.addEventListener("submit", getWeatherData);
+
 
 // call api for weather data
 async function getWeatherData(event) {
@@ -70,3 +90,4 @@ async function getWeatherData(event) {
 
 
 }
+
