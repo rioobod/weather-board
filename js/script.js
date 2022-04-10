@@ -125,6 +125,13 @@ const weatherConditions = [
 searchBtn.addEventListener("click", getWeatherData);
 searchForm.addEventListener("submit", getWeatherData);
 
+// remove children from a DOM element
+function removeChildren(parent) {
+    while(parent.firstChild){
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 // call api for weather data
 async function getWeatherData(event) {
   event.preventDefault();
@@ -218,4 +225,68 @@ function setWeatherData(weatherData) {
     currHumidityDisplay.innerText = `${currHumidity}%`;
     currUVDisplay.classList.add(uvStyle);
     currUVDisplay.innerText = `${currUV}`;
+
+    showDailyForecast();
   }
+
+  // function to show the daily forecast
+function showDailyForecast() {
+
+    dailyForecastDisplay.classList.remove("hide");
+
+    let limit = 1;
+
+    removeChildren(dailyForecastList);
+
+    dailyForecast.forEach(day => {
+        if (limit <= dailyForecastLimit) {
+            let date = moment().add(limit, "days").format("MMMM Do");
+            let div = document.createElement("div");
+            let uvStyle = "";
+            let iconStyle = "";
+            let iconColor = ""
+
+            div.classList.add("card");
+       
+            if (day.uvi < 3) {
+                uvStyle = "uvi-favorable"
+            } else if (day.uvi > 2 && day.uvi < 6) {
+                uvStyle = "uvi-moderate";
+            } else {
+                uvStyle = "uvi-severe"
+            }
+
+            weatherConditions.forEach(item => {
+                if (item.condition === day.weather[0].main) {
+                    iconStyle = item.icon;
+                    iconColor = item.color;
+                }
+            })
+
+            div.innerHTML = `
+            <h6 class="card-header">${date} </h6>
+            <i class="fas ${iconStyle} fa-lg" style="color: ${iconColor}"></i>
+            <ul class="list-group list-group-slush">
+                <li class="list-group-item data-display">
+                    <h7>Temp: </h7>
+                    <p class="card-text">${day.temp.day}&deg</p>
+                </li>
+                <li class="list-group-item data-display">
+                    <h7>Wind Speed: </h7>
+                    <p class="card-text">${day.wind_speed} mph</p>
+                </li>
+                <li class="list-group-item data-display">
+                    <h7>Humidity: </h7>
+                    <p class="card-text">${day.humidity}%</p>
+                </li>
+                <li class="list-group-item data-display">
+                    <h7>UV Index: </h7>
+                    <p class="card-text ${uvStyle}">${day.uvi}</p>
+                </li>
+            </ul>
+            `;
+            limit++
+            dailyForecastList.appendChild(div);
+        }
+    })
+}
