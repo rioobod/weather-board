@@ -129,6 +129,36 @@ let searchHistory = [];
 searchBtn.addEventListener("click", getWeatherData);
 searchForm.addEventListener("submit", getWeatherData);
 
+checkHistory();
+
+// check local storage for search history
+function checkHistory() {
+    if (localStorage.getItem("searchHistory")){
+        searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+        displaySearchHistory();
+    }
+}
+
+// display the search history if found
+function displaySearchHistory() {
+    removeChildren(searchHistoryDisplay);
+
+    searchHistory.forEach(item => {
+        let li = document.createElement("li");
+        li.classList.add("search-list-item")
+        li.innerText = item;
+        searchHistoryDisplay.appendChild(li);
+    })
+
+    const searchListItems = document.querySelectorAll(".search-list-item");
+    searchListItems.forEach(item => {
+        item.addEventListener("click", function (event) {
+            cityName = item.innerText;
+            getWeatherData(event);
+        })
+        })
+}
+
 // remove children from a DOM element
 function removeChildren(parent) {
     while(parent.firstChild){
@@ -185,6 +215,7 @@ async function getWeatherData(event) {
     })
     .catch((e) => console.log(e));
     setWeatherData(weatherData); 
+    saveSearch();
 }
 
 function setWeatherData(weatherData) {
@@ -210,6 +241,8 @@ function setWeatherData(weatherData) {
       console.log("no valid city");
     }
   }
+  
+  // function to show the current day and call the daily forecast
   function showWeatherForecast() {
     dayDisplay.classList.remove("hide");
   
@@ -309,5 +342,6 @@ function saveSearch() {
         searchHistory.push(cityName);
     }
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-   
+    displaySearchHistory();
 }
+
